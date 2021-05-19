@@ -8,6 +8,19 @@ def get_category(soup):
     categoryReplace=category.replace('\n','')
     return categoryReplace
 
+def get_review_rating(url):
+    URL=url
+    livre= requests.get(URL)
+
+    if livre.ok: 
+        soup= BeautifulSoup(livre.text,"html.parser")
+        #p=soup.find('div',{'class':'col-sm-6 product_main'}).find('p').find_next().find_next().find_next()
+        p=soup.find('div',{'class':'col-sm-6 product_main'}).find("p",class_="star-rating")
+        rating=str(p["class"])
+        starRating=rating[15:-1]
+        print ("coucou: "+ starRating)
+
+
 
 def scrapBook(url):
     
@@ -49,7 +62,8 @@ def scrapBook(url):
 
         print(book)
 
-scrapBook("http://books.toscrape.com/catalogue/security_925/index.html")
+#scrapBook("http://books.toscrape.com/catalogue/security_925/index.html")
+get_review_rating("http://books.toscrape.com/catalogue/a-light-in-the-attic_1000/index.html")
 
      
     
