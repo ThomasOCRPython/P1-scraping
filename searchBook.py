@@ -16,6 +16,19 @@ def get_reviewRating(soup):
     star=rating[15:-1]
     starRating=eval(star)
     return starRating
+    # def convertStar(i):
+    #     switcher={
+    #             'zero':'0',
+    #             'one':'1',
+    #             'two':'2',
+    #             'three':'3',
+    #             'four':'4',
+    #             'five':'5',
+    #             'six':'6'
+    #          }
+         
+    #     return switcher.get(i,"Invalid day of week")
+    # print(convertStar(starRating))
 
 def get_description(soup):
 
@@ -60,7 +73,7 @@ def scrapBook(url):
 
         print(book)
 
-scrapBook("http://books.toscrape.com/catalogue/security_925/index.html")
+# scrapBook("http://books.toscrape.com/catalogue/security_925/index.html")
 
 
 

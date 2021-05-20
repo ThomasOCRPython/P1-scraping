@@ -48,15 +48,16 @@ def categoryUrl(url):
                     links.append("http://books.toscrape.com/"+ link)
 
     print(len(links))
+    return links
     
     
    
-    with open ('url.txt','w') as file:
-        for link in links:
-            file.write(link.replace('/../../../','/')+'\n')
+    # with open ('url.txt','w') as file:
+    #     for link in links:
+    #         file.write(link.replace('/../../../','/')+'\n')
 
 
-categoryUrl('http://books.toscrape.com/catalogue/category/books/romance_8/index.html')
+#print(categoryUrl('http://books.toscrape.com/catalogue/category/books/romance_8/index.html'))
 
 
 
