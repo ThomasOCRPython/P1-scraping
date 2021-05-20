@@ -32,9 +32,11 @@ def get_reviewRating(soup):
 
 def get_description(soup):
 
-    paragraphs=soup.findAll('p')
-    paragraph=paragraphs[3].encode('utf-8')
-    return paragraph    
+    # paragraphs=soup.findAll('p')
+    # paragraph=paragraphs[3].text
+    article = soup.find("article", "product_page")
+    description = article.find("p", recursive=False)
+    return description
 
 
 
@@ -45,12 +47,12 @@ def scrapBook(url):
     livre= requests.get(URL)
 
     if livre.ok: 
-        soup= BeautifulSoup(livre.text,"html.parser")
+        soup= BeautifulSoup(livre.content,"html.parser")
         #Title
         titre= soup.find('div',{'class':'col-sm-6 product_main'}).find('h1')
 
         #description
-        description=get_description(soup)
+        #description=get_description(soup)
 
         #review rating
         reviewRating=get_reviewRating(soup)
@@ -74,15 +76,14 @@ def scrapBook(url):
         book['price_including_tax']=tds[3].text
         book['price_excluding_tax']=tds[2].text
         book['number_available']=tds[5].text
-        book['product_description']=description
+        #book['product_description']=description
         book['category']=category
         book['review_rating']= reviewRating
         book['image_url']=image_url
         book['Tax']=tds[4].text
 
-        print(book)
-
-# scrapBook("http://books.toscrape.com/catalogue/security_925/index.html")
+        return book
+#scrapBook("http://books.toscrape.com/catalogue/security_925/index.html")
 
 
 
