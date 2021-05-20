@@ -24,20 +24,28 @@ def categoryUrl(url):
     resultat= nombreDePage(url)
     print(resultat)
     links=[]
-    
-    url1=url.replace('index.html','')
-    for i in range(1,resultat+1):
-        URL=url1+"page-"+str(i)+".html"
-        r= requests.get(URL)
-        if r.ok:
-            print ('page :'+str(i))
-            soup= BeautifulSoup(r.text,"html.parser")
-            articles= soup.findAll('article')
-            for article in articles:
-                a= article.find('a')
-                link= a['href']
-                
-                links.append("http://books.toscrape.com/"+ link)
+    if resultat>1:
+        url1=url.replace('index.html','')
+        for i in range(1,resultat+1):
+            URL=url1+"page-"+str(i)+".html"
+            r= requests.get(URL)
+            if r.ok:
+                print ('page :'+str(i))
+                soup= BeautifulSoup(r.text,"html.parser")
+                articles= soup.findAll('article')
+                for article in articles:
+                    a= article.find('a')
+                    link= a['href']
+                    links.append("http://books.toscrape.com/"+ link)
+    else:                
+           r= requests.get(url)
+           if r.ok:
+                soup= BeautifulSoup(r.text,"html.parser")
+                articles= soup.findAll('article')
+                for article in articles:
+                    a= article.find('a')
+                    link= a['href']
+                    links.append("http://books.toscrape.com/"+ link)
 
     print(len(links))
     
@@ -48,7 +56,7 @@ def categoryUrl(url):
             file.write(link.replace('/../../../','/')+'\n')
 
 
-categoryUrl('http://books.toscrape.com/catalogue/category/books/travel_2/index.html')
+categoryUrl('http://books.toscrape.com/catalogue/category/books/romance_8/index.html')
 
 
 
