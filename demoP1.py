@@ -1,5 +1,6 @@
 import requests
 from bs4 import BeautifulSoup
+from pathlib import Path 
 
 
 '''links=[]
@@ -35,36 +36,37 @@ if livre.ok:
     for i,j in zip(ths,tds):
         print(i.text,': ',j.text)'''
 
-def book(url):
+#def book(url):
     
-    URL=url
-    livre= requests.get(URL)
-    if livre.ok: 
-        soup= BeautifulSoup(livre.text,"html.parser")
-        #Titre du livre
-        titre= soup.find('div',{'class':'col-sm-6 product_main'}).find('h1')
+#     URL=url
+#     livre= requests.get(URL)
+#     if livre.ok: 
+#         soup= BeautifulSoup(livre.text,"html.parser")
+#         #Titre du livre
+#         titre= soup.find('div',{'class':'col-sm-6 product_main'}).find('h1')
 
-        #Déscription du livre
-        #productDescription=soup.find('div',{'class':'sub-header'}).find_next_siblings("p")
+#         #Déscription du livre
+#         #productDescription=soup.find('div',{'class':'sub-header'}).find_next_siblings("p")
 
-        #Upc, prix taxe incluse, prix taxe excluse,Type du produit, Taxe, nombre d'avis, stock
-        tds=soup.findAll('td')
+#         #Upc, prix taxe incluse, prix taxe excluse,Type du produit, Taxe, nombre d'avis, stock
+#         tds=soup.findAll('td')
 
-        #image
-        image=soup.find('div',{'class':'item active'}).find('img')
-        image_url=image['src']
+#         #image
+#         image=soup.find('div',{'class':'item active'}).find('img')
+#         image_url=image['src']
 
-        #catégorie
-        categorys=soup.findAll('li')
-        category=categorys[2].text
-        categoryReplace=category.replace('\n','')
+#         #catégorie
+#         categorys=soup.findAll('li')
+#         category=categorys[2].text
+#         categoryReplace=category.replace('\n','')
     
-        dicoBook={'product_page_url':URL,'title':titre.text,'universal_ product_code':tds[0].text,'Product Type':tds[1].text,'price_excluding_tax':tds[2].text,'price_including_tax':tds[3].text,'product_description':'productDescription','Tax':tds[4].text,'number_available':tds[5].text,'category':categoryReplace,'Number of reviews':tds[6].text,'image_url':image_url}    
-        print (dicoBook)
+#         dicoBook={'product_page_url':URL,'title':titre.text,'universal_ product_code':tds[0].text,'Product Type':tds[1].text,'price_excluding_tax':tds[2].text,'price_including_tax':tds[3].text,'product_description':'productDescription','Tax':tds[4].text,'number_available':tds[5].text,'category':categoryReplace,'Number of reviews':tds[6].text,'image_url':image_url}    
+#         print (dicoBook)
     
-book('http://books.toscrape.com/catalogue/security_925/index.html')
+# book('http://books.toscrape.com/catalogue/security_925/index.html')
        
-    
+mypath=Path('./data/Christian') 
+print(mypath.exists())
 
 
 

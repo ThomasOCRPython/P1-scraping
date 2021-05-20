@@ -49,8 +49,17 @@ def scrapBook(url):
         #Title
         titre= soup.find('div',{'class':'col-sm-6 product_main'}).find('h1')
 
+        #description
+        description=get_description(soup)
+
+        #review rating
+        reviewRating=get_reviewRating(soup)
+
         #Upc, price tax including, price taxe excluding,Type , Tax, nb available, stock
         tds=soup.findAll('td')
+
+        #category
+        category=get_category(soup)
 
         #img
         image=soup.find('div',{'class':'item active'}).find('img')
@@ -65,9 +74,9 @@ def scrapBook(url):
         book['price_including_tax']=tds[3].text
         book['price_excluding_tax']=tds[2].text
         book['number_available']=tds[5].text
-        book['product_description']=get_description(soup)
-        book['category']= get_category(soup)
-        book['review_rating']= get_reviewRating(soup)
+        book['product_description']=description
+        book['category']=category
+        book['review_rating']= reviewRating
         book['image_url']=image_url
         book['Tax']=tds[4].text
 
