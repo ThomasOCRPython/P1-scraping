@@ -9,7 +9,7 @@ import searchBook
 import searchCategory as cat
 
 
-mypath=Path('./data/Christian')
+
 
 def categoryName(url):
     
@@ -19,24 +19,30 @@ def categoryName(url):
     return(name)
 
 
-def searchBookCategory(url):a
+def searchBookCategory(url):
     livreUrl=[]
     books=[]
-    
-    
+
+    #Clean Url
     refs=cat.categoryUrl(url)
     for ref in refs:
         replaceUrl=ref.replace('/../../../','/catalogue/')
         livreUrl.append(replaceUrl)
-    
+
+    #Livre par Url
     for livre in livreUrl: 
-        book=searchBook.scrapBook(livre)
-           
+        book=searchBook.scrapBook(livre)    
         books.append(book)
-    #return books 
-    # return livreUrl 
+    
+    #Creation dossier et fichier
+    category=categoryName(url)
+    folderCategory=Path('./data/',category)
+    folderCategory.mkdir(exist_ok=True)
+    
+    fileCategory=Path(folderCategory,category+'.csv')
+    
       
-    with open('./data/Christian/Christian.csv','w',newline='') as f:
+    with open(fileCategory,'w',newline='') as f:
         
         fieldnames=books[0].keys()#['product_page_url','universal_ product_code','title','price_including_tax','price_excluding_tax','number_available','product_description','category','review_rating','image_url','Tax']
         print(books[0].keys())
@@ -55,5 +61,5 @@ def searchBookCategory(url):a
 
     
 
-searchBookCategory('http://books.toscrape.com/catalogue/category/books/christian_43/index.html')
-categoryNameUrl('http://books.toscrape.com/catalogue/category/books/young-adult_21/index.html')
+searchBookCategory('http://books.toscrape.com/catalogue/category/books/sports-and-games_17/index.html')
+
