@@ -2,6 +2,7 @@ import requests
 from bs4 import BeautifulSoup
 from pathlib import Path
 import csv
+import re
 
 
 import searchBook 
@@ -10,9 +11,18 @@ import searchCategory as cat
 
 mypath=Path('./data/Christian')
 
-def searchBookCategory(url):
+def categoryName(url):
+    
+    a=url.replace('http://books.toscrape.com/catalogue/category/books/','')
+    b=re.sub(r'[0-9]+', '',a)
+    name=b.replace('_/index.html','')
+    return(name)
+
+
+def searchBookCategory(url):a
     livreUrl=[]
     books=[]
+    
     
     refs=cat.categoryUrl(url)
     for ref in refs:
@@ -46,3 +56,4 @@ def searchBookCategory(url):
     
 
 searchBookCategory('http://books.toscrape.com/catalogue/category/books/christian_43/index.html')
+categoryNameUrl('http://books.toscrape.com/catalogue/category/books/young-adult_21/index.html')
