@@ -1,2 +1,4 @@
 env/
 url.txt
+data/**/*.csv
+data/*
