@@ -61,5 +61,5 @@ def searchBookCategory(url):
 
     
 
-searchBookCategory('http://books.toscrape.com/catalogue/category/books/sports-and-games_17/index.html')
+searchBookCategory('http://books.toscrape.com/catalogue/category/books/new-adult_20/index.html')
 
