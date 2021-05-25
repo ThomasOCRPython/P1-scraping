@@ -38,9 +38,17 @@ def get_description(soup):
     description = article.find("p", recursive=False)
     return description
 
+def get_imageUrl(soup):
+
+    image=soup.find('div',{'class':'item active'}).find('img')
+    image_url=image['src']
+    imageUrlClean=image_url.replace('../../','http://books.toscrape.com/')
+    return imageUrlClean
 
 
 def scrapBook(url):
+
+
 
     
     URL=url
@@ -64,8 +72,8 @@ def scrapBook(url):
         category=get_category(soup)
 
         #img
-        image=soup.find('div',{'class':'item active'}).find('img')
-        image_url=image['src']
+        
+        image_url=get_imageUrl(soup)
 
     
         #tableau
