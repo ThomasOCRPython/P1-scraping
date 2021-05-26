@@ -24,10 +24,10 @@ def get_reviewRating(soup):
     #             'three':'3',
     #             'four':'4',
     #             'five':'5',
-    #             'six':'6'
+    # 
     #          }
          
-    #     return switcher.get(i,"Invalid day of week")
+    #     return switcher.get(i)
     # print(convertStar(starRating))
 
 def get_description(soup):

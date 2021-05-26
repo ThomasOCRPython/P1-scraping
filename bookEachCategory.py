@@ -22,6 +22,7 @@ def categoryName(url):
 def searchBookCategory(url):
     livreUrl=[]
     books=[]
+    image=[]
 
     #Clean Url
     refs=cat.categoryUrl(url)
@@ -33,15 +34,29 @@ def searchBookCategory(url):
     for livre in livreUrl: 
         book=searchBook.scrapBook(livre)    
         books.append(book)
+        
     
     #Creation dossier et fichier
     category=categoryName(url)
     folderCategory=Path('./data/',category)
     folderCategory.mkdir(exist_ok=True)
+    folderImage=Path(folderCategory,'image')
+    folderImage.mkdir(exist_ok=True)
+
     
     fileCategory=Path(folderCategory,category+'.csv')
+
+    #partie image
     
-      
+    for image in books:
+        picture=image['image_url']
+        page=requests.get(picture)
+        filename=picture.split('/')[-1]
+        filepicture=Path(folderImage,filename)
+        with open(filepicture, 'wb') as f:
+            f.write(page.content)
+    
+    #partie csv  
     with open(fileCategory,'w',newline='') as f:
         
         fieldnames=books[0].keys()#['product_page_url','universal_ product_code','title','price_including_tax','price_excluding_tax','number_available','product_description','category','review_rating','image_url','Tax']
@@ -61,5 +76,5 @@ def searchBookCategory(url):
 
     
 
-searchBookCategory('http://books.toscrape.com/catalogue/category/books/new-adult_20/index.html')
+searchBookCategory('http://books.toscrape.com/catalogue/category/books/historical-fiction_4/index.html')
 
