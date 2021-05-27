@@ -18,11 +18,18 @@ def categoryName(url):
     name=b.replace('_/index.html','')
     return(name)
 
+def searchImage(books,folderImage):
+    for image in books:
+        picture=image['image_url']
+        page=requests.get(picture)
+        filename=picture.split('/')[-1]
+        filepicture=Path(folderImage,filename)
+        with open(filepicture, 'wb') as f:
+            f.write(page.content)
 
 def searchBookCategory(url):
     livreUrl=[]
     books=[]
-    image=[]
 
     #Clean Url
     refs=cat.categoryUrl(url)
@@ -36,25 +43,17 @@ def searchBookCategory(url):
         books.append(book)
         
     
-    #Creation dossier et fichier
+    #Creation chemin,dossiers et fichiers
     category=categoryName(url)
     folderCategory=Path('./data/',category)
     folderCategory.mkdir(exist_ok=True)
     folderImage=Path(folderCategory,'image')
     folderImage.mkdir(exist_ok=True)
-
-    
     fileCategory=Path(folderCategory,category+'.csv')
 
     #partie image
     
-    for image in books:
-        picture=image['image_url']
-        page=requests.get(picture)
-        filename=picture.split('/')[-1]
-        filepicture=Path(folderImage,filename)
-        with open(filepicture, 'wb') as f:
-            f.write(page.content)
+    searchImage(books,folderImage)
     
     #partie csv  
     with open(fileCategory,'w',newline='') as f:
@@ -66,9 +65,7 @@ def searchBookCategory(url):
         writer.writerows(books)
         
         
-        #for book in books:
-            #print(book)
-            #writer.writerows(book)
+        
         
         
         
@@ -76,5 +73,5 @@ def searchBookCategory(url):
 
     
 
-searchBookCategory('http://books.toscrape.com/catalogue/category/books/historical-fiction_4/index.html')
+searchBookCategory('http://books.toscrape.com/catalogue/category/books/romance_8/index.html')
 

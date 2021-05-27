@@ -51,10 +51,6 @@ def categoryUrl(url):
     return links
     
     
-   
-    # with open ('url.txt','w') as file:
-    #     for link in links:
-    #         file.write(link.replace('/../../../','/')+'\n')
 
 
 #print(categoryUrl('http://books.toscrape.com/catalogue/category/books/romance_8/index.html'))

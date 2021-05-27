@@ -8,35 +8,21 @@ def get_category(soup):
     categoryReplace=category.replace('\n','')
     return categoryReplace
 
+
 def get_reviewRating(soup):
   
-    #p=soup.find('div',{'class':'col-sm-6 product_main'}).find('p').find_next().find_next().find_next()
     p= soup.find('div',{'class':'col-sm-6 product_main'}).find("p",class_="star-rating")
     rating=str(p["class"])
     star=rating[15:-1]
     starRating=eval(star)
     return starRating
-    # def convertStar(i):
-    #     switcher={
-    #             'zero':'0',
-    #             'one':'1',
-    #             'two':'2',
-    #             'three':'3',
-    #             'four':'4',
-    #             'five':'5',
-    # 
-    #          }
-         
-    #     return switcher.get(i)
-    # print(convertStar(starRating))
+    
 
 def get_description(soup):
-
-    # paragraphs=soup.findAll('p')
-    # paragraph=paragraphs[3].text
-    article = soup.find("article", "product_page")
-    description = article.find("p", recursive=False)
-    return description
+    
+    div=soup.find('div',class_="sub-header")
+    p=div.find_next_sibling()
+    return p.text
 
 def get_imageUrl(soup):
 
@@ -60,7 +46,7 @@ def scrapBook(url):
         titre= soup.find('div',{'class':'col-sm-6 product_main'}).find('h1')
 
         #description
-        #description=get_description(soup)
+        description=get_description(soup)
 
         #review rating
         reviewRating=get_reviewRating(soup)
@@ -72,7 +58,6 @@ def scrapBook(url):
         category=get_category(soup)
 
         #img
-        
         image_url=get_imageUrl(soup)
 
     
@@ -84,15 +69,14 @@ def scrapBook(url):
         book['price_including_tax']=tds[3].text
         book['price_excluding_tax']=tds[2].text
         book['number_available']=tds[5].text
-        #book['product_description']=description
+        book['product_description']=description
         book['category']=category
         book['review_rating']= reviewRating
         book['image_url']=image_url
         book['Tax']=tds[4].text
 
         return book
-#scrapBook("http://books.toscrape.com/catalogue/security_925/index.html")
-
+#scrapBook("http://books.toscrape.com/catalogue/a-light-in-the-attic_1000/index.html")
 
 
      
