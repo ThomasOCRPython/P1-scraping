@@ -8,9 +8,7 @@ def nombreDePage(url):
     page= requests.get(URL)
     if page.ok:
         soup= BeautifulSoup(page.text,"html.parser")
-
-        nbBook=soup.find('form',{'class':'form-horizontal'}).find('strong').text
-        
+        nbBook=soup.find('form',{'class':'form-horizontal'}).find('strong').text        
         if int(nbBook)>20:
             resultat=ceil(int(nbBook)/20)
         else: resultat=1
@@ -20,7 +18,6 @@ def nombreDePage(url):
  
 
 def categoryUrl(url):
-    
     resultat= nombreDePage(url)
     print(resultat)
     links=[]
@@ -46,7 +43,6 @@ def categoryUrl(url):
                     a= article.find('a')
                     link= a['href']
                     links.append("http://books.toscrape.com/"+ link)
-
     print(len(links))
     return links
     

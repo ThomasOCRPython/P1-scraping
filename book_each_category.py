@@ -5,8 +5,8 @@ import csv
 import re
 
 
-import searchBook 
-import searchCategory as cat
+import search_book 
+import search_category as cat
 
 
 
@@ -39,7 +39,7 @@ def searchBookCategory(url):
 
     #Livre par Url
     for livre in livreUrl: 
-        book=searchBook.scrapBook(livre)    
+        book=search_book.scrapBook(livre)    
         books.append(book)
         
     
@@ -73,5 +73,5 @@ def searchBookCategory(url):
 
     
 
-searchBookCategory('http://books.toscrape.com/catalogue/category/books/romance_8/index.html')
+searchBookCategory('http://books.toscrape.com/catalogue/category/books/philosophy_7/index.html')
 
