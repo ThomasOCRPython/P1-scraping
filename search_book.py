@@ -34,28 +34,22 @@ def get_imageUrl(soup):
 
 def scrapBook(url):
     URL = url
-    livre = requests.get(URL)
+    livre = requests.get(URL,timeout=10)
 
     if livre.ok:
         soup = BeautifulSoup(livre.content, "html.parser")
         # Title
         titre = soup.find("div", {"class": "col-sm-6 product_main"}).find("h1")
-
         # description
         description = get_description(soup)
-
         # review rating
         reviewRating = get_reviewRating(soup)
-
         # Upc, price tax including, price taxe excluding,Type , Tax, nb available, stock
         tds = soup.findAll("td")
-
         # category
         category = get_category(soup)
-
         # img
         image_url = get_imageUrl(soup)
-
         # tableau
         book = {}
         book["product_page_url"] = URL
@@ -69,7 +63,7 @@ def scrapBook(url):
         book["review_rating"] = reviewRating
         book["image_url"] = image_url
         book["Tax"] = tds[4].text
-
         return book
 
-#scrapBook("http://books.toscrape.com/catalogue/in-her-wake_980/index.html")
+
+#print(scrapBook("http://books.toscrape.com/catalogue/in-her-wake_980/index.html"))
