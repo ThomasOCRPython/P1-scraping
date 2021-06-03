@@ -18,10 +18,19 @@ Lancer le fichier "main" à partir de votre terminal.
 1. Télécharger le dossier zip depuis Git Hub.
 1. A partir de votre terminal, se mettre au niveau du répertoire "P1-scraping".
 1. Créer un environnement virtuel avec la commande :
-   '''python3 -m venv env''' ou '''py -m venv env'''
+   '''python3 -m venv env''' 
+   ou 
+   '''py -m venv env'''
 1. Démarrer l'environnement virtuel avec les commandes:
-   Pour mac:'''source venv/bin/activate'''
-   pour win:'''env\Scripts\activate.bat'''
-   Pour Git Bash:'''source env/Scripts/activate
-1. Lancer l'installation des bibliothèques nécessaires à partir du fichier "requiremts.txt" avec la commande:'''pip install -r requirements.txt'''
-1. Lancer le fichier main avec la commande: '''py main.py''' ou ''' py main.py'''  
+   Pour mac:
+   '''source venv/bin/activate'''
+   pour win:
+   '''env\Scripts\activate.bat'''
+   Pour Git Bash:
+   '''source env/Scripts/activate'''
+1. Lancer l'installation des bibliothèques nécessaires à partir du fichier "requiremts.txt" avec la commande:
+'''pip install -r requirements.txt'''
+1. Lancer le fichier main avec la commande: 
+'''py main.py''' 
+   ou 
+''' py main.py'''  
