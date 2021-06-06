@@ -8,52 +8,53 @@ import search_book
 import search_category as cat
 
 
-def categoryName(url):
-    a = url.replace("http://books.toscrape.com/catalogue/category/books/", "")
-    b = re.sub(r"[0-9]+", "", a)
-    name = b.replace("_/index.html", "")
+def get_category_name(url):
+    url_category_name = url.replace(
+        "http://books.toscrape.com/catalogue/category/books/", ""
+    )
+    category_name = re.sub(r"[0-9]+", "", url_category_name)
+    name = category_name.replace("_/index.html", "")
     return name
 
 
-def searchImage(books, folderImage):
+def search_image(books, folder_image):
     for image in books:
         picture = image["image_url"]
         page = requests.get(picture)
-        filename = picture.split("/")[-1]
-        filepicture = Path(folderImage, filename)
-        with open(filepicture, "wb") as f:
+        file_name = picture.split("/")[-1]
+        file_picture = Path(folder_image, file_name)
+        with open(file_picture, "wb") as f:
             f.write(page.content)
 
 
-def searchBookCategory(url):
-    livreUrl = []
+def get_book_each_ategory(url):
+    urls_books = []
     books = []
 
-    # Clean Url
-    refs = cat.categoryUrl(url)
-    for ref in refs:
-        replaceUrl = ref.replace("/../../../", "/catalogue/")
-        livreUrl.append(replaceUrl)
-    # Livre par Url
-    for livre in livreUrl:
-        book = search_book.scrapBook(livre)
-        books.append(book)        
-    # Creation chemin,dossiers et fichiers
-    category = categoryName(url)
-    folderCategory = Path("./data/", category)
-    folderCategory.mkdir(exist_ok=True)
-    folderImage = Path(folderCategory, "image")
-    folderImage.mkdir(exist_ok=True)
-    fileCategory = Path(folderCategory, category + ".csv")
+    clean_urls_categorys = cat.get_url_category(url)
+    for clean_url_category in clean_urls_categorys:
+        replace_url = clean_url_category.replace("/../../../", "/catalogue/")
+        urls_books.append(replace_url)
+        # print(replace_url)
 
-    searchImage(books, folderImage)
+    for url_book in urls_books:
+        book = search_book.get_book(url_book)
+        books.append(book)
 
-    with open(fileCategory, "w", newline="") as f:
-        fieldnames = books[0].keys()  
-        #print(books[0].keys())
+    category = get_category_name(url)
+    folder_category = Path("./data/", category)
+    folder_category.mkdir(exist_ok=True, parents=True)
+    folder_image = Path(folder_category, "image")
+    folder_image.mkdir(exist_ok=True)
+    file_category = Path(folder_category, category + ".csv")
+
+    search_image(books, folder_image)
+
+    with open(file_category, "w", encoding="utf-8", newline="") as f:
+        fieldnames = books[0].keys()
         writer = csv.DictWriter(f, delimiter=";", fieldnames=fieldnames)
         writer.writeheader()
         writer.writerows(books)
 
 
-searchBookCategory('http://books.toscrape.com/catalogue/category/books/mystery_3/index.html')
+#get_book_each_ategory('http://books.toscrape.com/catalogue/category/books/mystery_3/index.html')

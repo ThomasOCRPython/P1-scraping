@@ -30,7 +30,7 @@ Lancer le fichier "main" à partir de votre terminal.
    '''source env/Scripts/activate'''
 1. Lancer l'installation des bibliothèques nécessaires à partir du fichier "requiremts.txt" avec la commande:
 '''pip install -r requirements.txt'''
-1. Lancer le fichier main avec la commande: 
+1. Lancer le fichier main avec la commande:
 '''py main.py''' 
    ou 
 ''' py main.py'''  
