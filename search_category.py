@@ -45,4 +45,4 @@ def get_url_category(url):
     return links
 
 
-# print(get_url_category('http://books.toscrape.com/catalogue/category/books/romance_8/index.html'))
+#print(get_url_category('http://books.toscrape.com/catalogue/category/books/romance_8/index.html'))

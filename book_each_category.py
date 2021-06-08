@@ -50,7 +50,7 @@ def get_book_each_ategory(url):
 
     search_image(books, folder_image)
 
-    with open(file_category, "w", encoding="utf-8", newline="") as f:
+    with open(file_category, "w", encoding="utf-8-sig", newline="") as f:
         fieldnames = books[0].keys()
         writer = csv.DictWriter(f, delimiter=";", fieldnames=fieldnames)
         writer.writeheader()
@@ -58,3 +58,6 @@ def get_book_each_ategory(url):
 
 
 #get_book_each_ategory('http://books.toscrape.com/catalogue/category/books/mystery_3/index.html')
+get_book_each_ategory('http://books.toscrape.com/catalogue/category/books/sequential-art_5/index.html')
+#get_book_each_ategory('http://books.toscrape.com/catalogue/category/books/philosophy_7/index.html')
+

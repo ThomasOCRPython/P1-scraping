@@ -30,5 +30,4 @@ def get_all_category(url):
             book_each_category.get_book_each_ategory(url_link)
             # print(url_link)
 
-
-# get_all_category("http://books.toscrape.com/index.html")
+get_all_category("http://books.toscrape.com/index.html")
